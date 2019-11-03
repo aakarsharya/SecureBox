@@ -10,6 +10,7 @@ httpie = "*"
 
 [packages]
 chalice = "*"
+pynamodb = "*"
 
 [requires]
 python_version = "3.6"
