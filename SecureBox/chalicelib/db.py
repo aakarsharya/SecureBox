@@ -16,11 +16,14 @@ class Database(Model):
         else:
             region = 'us-east-2'
 
-    box_id = UnicodeAttribute(hash_key=True)
-    tracking_id = UnicodeSetAttribute(null=True)
-    locked = BooleanAttribute()
-    phone_number = UnicodeAttribute()
-    email = UnicodeAttribute()
-    password = UnicodeAttribute()
+    m_BoxID = UnicodeAttribute(hash_key=True)
+    m_PhoneNumber = UnicodeAttribute()
+    m_Email = UnicodeAttribute()
+    m_Password = UnicodeAttribute()
+    m_Orders = UnicodeSetAttribute(null=True)
+    m_Locked = BooleanAttribute(null=True)
 
+
+
+        
 
