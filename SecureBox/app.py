@@ -1,11 +1,12 @@
 from chalice import Chalice
 
 app = Chalice(app_name='SecureBox')
+app.debug = True
 
-
-@app.route('/')
-def index():
-    return {'hello': 'world'}
+@app.route('/', methods=['POST'])
+def authenticate():
+    request = app.current_request.json_body
+    return {'value':request['value']}
 
 
 # The view function above will return {"hello": "world"}

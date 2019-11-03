@@ -5,10 +5,11 @@ verify_ssl = true
 
 [dev-packages]
 pylint = "*"
+awscli = "*"
 
 [packages]
-awscli = "*"
 chalice = "*"
+httpie = "*"
 
 [requires]
 python_version = "3.6"
