@@ -3,11 +3,19 @@ from chalice import Chalice
 app = Chalice(app_name='SecureBox')
 app.debug = True
 
+Database = {'1010': '123-456', '1234': '456-789', '2244': '888-777'} # box_id, tracking_id
+
 @app.route('/', methods=['POST'])
 def authenticate():
     request = app.current_request.json_body
-    return {'value':request['value']}
-
+    try:
+        exists = request['tracking_id'] == Database[request['box_id']]
+        if (exists):
+            return {'value': 'success'}
+        else:
+            return {'value': 'failure'}
+    except KeyError:
+        return {'value': False}
 
 # The view function above will return {"hello": "world"}
 # whenever you make an HTTP GET request to '/'.
