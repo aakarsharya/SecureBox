@@ -18,6 +18,18 @@ def authenticate():
     except KeyError:
         return {'value': False}
 
+def delete():
+    request = app.current_request.json_body
+    try:
+        exists = request['tracking_id'] == Database['box_id']
+        if (exists):
+            Database.pop('tracking_id')
+            return {'value': 'success'}
+        else:
+            return {'value': 'not in database.'}
+    except KeyError:
+        return {'value': False}
+
 # The view function above will return {"hello": "world"}
 # whenever you make an HTTP GET request to '/'.
 #
