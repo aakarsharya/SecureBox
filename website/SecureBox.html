@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+	<meta charset="utf-8">
+	
+	<link type="text/css" rel="stylesheet" href="./style.css">
+	<title> SecureBox </title>
+</head>
+<body>
+	<div class="body"> </div>
+	<div class="grad"> </div>
+	<div class="header"> 
+		<div> Secure<span>Box</span></div>
+	</div>
+	<br>
+	<form name="login">
+	<div class="login">
+		<input type="text" placeholder="username" name="userid"> <br>
+		<input type="password" placeholder="password" name="password"> <br>
+		<input type="button" onclick="check(this.form)" value="Login"/> 
+ 	</div>
+
+ 	<script language="javascript">
+ 		function check(form)
+ 		{
+ 			if(form.userid.value == "securebox" && form.password.value == "123") 
+ 			{
+ 				wind.open('http://www.google.com')
+ 			}
+ 			else 
+ 			{
+ 				alert('invalid user name and password')
+ 			}
+ 		}
+ 	</script>
+		
+</body>
+
+</html>
