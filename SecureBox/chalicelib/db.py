@@ -73,3 +73,4 @@ class Database:
         return item['locked']
 
 db = Database()
+db.setAccessCode(456789, '1342')
