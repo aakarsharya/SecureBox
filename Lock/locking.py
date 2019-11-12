@@ -28,7 +28,7 @@ def inputAccessCode():
     key = ''
     while(key != '*'):
         key = keypad.getKey()
-        if (key != keypad.NULL):
+        if (key != keypad.NULL and key != '*'):
             access_code += key
     return access_code
 
