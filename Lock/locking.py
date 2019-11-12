@@ -15,6 +15,7 @@ colsPins = [19,15,13,11]
 
 # LED global variables
 redLED = 33
+GPIO.setmode(GPIO.BCM)
 GPIO.setup(redLED, GPIO.OUT)
 
 def inputAccessCode():
