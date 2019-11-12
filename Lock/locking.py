@@ -32,9 +32,9 @@ def inputAccessCode():
 
 def turnOnLights(correct):
     if (correct == False):
-        GPIO.output(redLED, HIGH)
+        GPIO.output(redLED, GPIO.HIGH)
         time.sleep(3)
-        GPIO.output(redLED, LOW)
+        GPIO.output(redLED, GPIO.LOW)
 
     
 
