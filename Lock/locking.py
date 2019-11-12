@@ -21,35 +21,38 @@ GPIO.setup(RED_LED, GPIO.OUT)
 GPIO.setup(GREEN_LED, GPIO.OUT)
 
 
-def inputAccessCode():
+def inputKeys():
     keypad = Keypad.Keypad(keys, rowsPins, colsPins, ROWS, COLS)
     keypad.setDebounceTime(50)
-    access_code = ''
+    parameter = ''
+    code = ''
+    key = keypad.getKey()
+    if (key == '*'):
+        parameter == 'access_code'
+    elif (key == '#'):
+        parameter == 'tracking_id'
     key = ''
     while(key != '*'):
         key = keypad.getKey()
         if (key != keypad.NULL and key != '*'):
-            access_code += key
-    return access_code
+            code += key
+    return code, parameter
 
 def turnOnLights(correct):
     if (correct == True):
         GPIO.output(GREEN_LED, GPIO.HIGH)
-        time.sleep(3)
+        time.sleep(2)
         GPIO.output(GREEN_LED, GPIO.LOW)
     else:
         GPIO.output(RED_LED, GPIO.HIGH)
-        time.sleep(3)
+        time.sleep(2)
         GPIO.output(RED_LED, GPIO.LOW)
 
     
 if __name__ == '__main__':
     print('Program is starting...')
     try:
-        turnOnLights(False)
-        time.sleep(2)
-        turnOnLights(True)
-        code = inputAccessCode()
-        print("Your code is " + code)
+        code, parameter = inputKeys()
+        print("Verifying your " + parameter + '\n You entered: ' + code)
     except KeyboardInterrupt:
         GPIO.cleanup()
