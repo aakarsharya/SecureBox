@@ -24,12 +24,11 @@ GPIO.setup(GREEN_LED, GPIO.OUT)
 def inputAccessCode():
     keypad = Keypad.Keypad(keys, rowsPins, colsPins, ROWS, COLS)
     keypad.setDebounceTime(50)
-    count = 0
     access_code = ''
-    while(count < 4):
+    key = ''
+    while(key != '*'):
         key = keypad.getKey()
         if (key != keypad.NULL):
-            count += 1
             access_code += key
     return access_code
 
@@ -44,7 +43,6 @@ def turnOnLights(correct):
         GPIO.output(RED_LED, GPIO.LOW)
 
     
-
 if __name__ == '__main__':
     print('Program is starting...')
     try:
