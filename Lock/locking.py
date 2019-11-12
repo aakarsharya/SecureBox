@@ -1,5 +1,7 @@
 import RPi.GPIO as GPIO
 import Keypad
+import json
+
 ROWS = 4
 COLS = 4
 keys = ['1', '2', '3', 'A',
@@ -13,15 +15,20 @@ def loop():
     keypad = Keypad.Keypad(keys, rowsPins, colsPins, ROWS, COLS)
     keypad.setDebounceTime(50)
     count = 0
+    access_code = ''
     while(count < 4):
         key = keypad.getKey()
         if (key != keypad.NULL):
             count += 1
-            print('you printed %c' %(key))
+            access_code += key
+    return access_code
+
+
                    
 if __name__ == '__main__':
     print('Program is starting...')
     try:
-        loop()
+        code = loop()
+        print("Your code is " + code)
     except KeyboardInterrupt:
         GPIO.cleanup()
