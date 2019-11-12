@@ -1,7 +1,9 @@
 import RPi.GPIO as GPIO
 import Keypad
 import json
+import time
 
+# keypad global variables
 ROWS = 4
 COLS = 4
 keys = ['1', '2', '3', 'A',
@@ -11,7 +13,11 @@ keys = ['1', '2', '3', 'A',
 rowsPins = [12,16,18,22]
 colsPins = [19,15,13,11]
 
-def loop():
+# LED global variables
+redLED = 33
+GPIO.setup(redLED, GPIO.OUT)
+
+def inputAccessCode():
     keypad = Keypad.Keypad(keys, rowsPins, colsPins, ROWS, COLS)
     keypad.setDebounceTime(50)
     count = 0
@@ -23,12 +29,19 @@ def loop():
             access_code += key
     return access_code
 
+def turnOnLights(correct):
+    if (correct == False):
+        GPIO.output(redLED, HIGH)
+        time.sleep(3)
+        GPIO.output(redLED, LOW)
 
-                   
+    
+
 if __name__ == '__main__':
     print('Program is starting...')
     try:
-        code = loop()
+        turnOnLights(False)
+        code = inputAccessCode()
         print("Your code is " + code)
     except KeyboardInterrupt:
         GPIO.cleanup()
