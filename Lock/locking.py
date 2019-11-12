@@ -17,7 +17,9 @@ colsPins = [19,15,13,11]
 RED_LED = 33
 GREEN_LED = 38
 GPIO.setmode(GPIO.BOARD)
-GPIO.setup(redLED, GPIO.OUT)
+GPIO.setup(RED_LED, GPIO.OUT)
+GPIO.setup(GREEN_LED, GPIO.OUT)
+
 
 def inputAccessCode():
     keypad = Keypad.Keypad(keys, rowsPins, colsPins, ROWS, COLS)
