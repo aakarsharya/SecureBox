@@ -14,7 +14,8 @@ rowsPins = [12,16,18,22]
 colsPins = [19,15,13,11]
 
 # LED global variables
-redLED = 33
+RED_LED = 33
+GREEN_LED = 38
 GPIO.setmode(GPIO.BOARD)
 GPIO.setup(redLED, GPIO.OUT)
 
@@ -31,10 +32,14 @@ def inputAccessCode():
     return access_code
 
 def turnOnLights(correct):
-    if (correct == False):
-        GPIO.output(redLED, GPIO.HIGH)
+    if (correct == True):
+        GPIO.output(GREEN_LED, GPIO.HIGH)
         time.sleep(3)
-        GPIO.output(redLED, GPIO.LOW)
+        GPIO.output(GREEN_LED, GPIO.LOW)
+    else:
+        GPIO.output(RED_LED, GPIO.HIGH)
+        time.sleep(3)
+        GPIO.output(RED_LED, GPIO.LOW)
 
     
 
@@ -42,6 +47,8 @@ if __name__ == '__main__':
     print('Program is starting...')
     try:
         turnOnLights(False)
+        time.sleep(2)
+        turnOnLights(True)
         code = inputAccessCode()
         print("Your code is " + code)
     except KeyboardInterrupt:
