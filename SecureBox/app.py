@@ -1,5 +1,5 @@
 from chalice import Chalice
-from SecureBox.chalicelib import Database, CURRENT_ENV
+from chalicelib import Database
 
 app = Chalice(app_name='SecureBox')
 app.debug = True
