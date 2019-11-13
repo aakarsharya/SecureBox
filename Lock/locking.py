@@ -22,15 +22,18 @@ GPIO.setup(GREEN_LED, GPIO.OUT)
 
 
 def inputKeys():
+    print('Enter * for access_code, # for tracking_id')
     keypad = Keypad.Keypad(keys, rowsPins, colsPins, ROWS, COLS)
     keypad.setDebounceTime(50)
     parameter = ''
     code = ''
-    key = keypad.getKey()
+    key = ''
+    while (key != '#' and key != '*'):
+        key = keypad.getKey()    
     if (key == '*'):
-        parameter == 'access_code'
+        parameter = "access_code"
     elif (key == '#'):
-        parameter == 'tracking_id'
+        parameter = "tracking_id"
     key = ''
     while(key != '*'):
         key = keypad.getKey()
@@ -53,6 +56,6 @@ if __name__ == '__main__':
     print('Program is starting...')
     try:
         code, parameter = inputKeys()
-        print("Verifying your " + parameter + '\n You entered: ' + code)
+        print("Verifying your " + parameter + '\n' + 'You entered: ' + code)
     except KeyboardInterrupt:
         GPIO.cleanup()
