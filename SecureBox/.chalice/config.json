@@ -3,7 +3,9 @@
   "app_name": "SecureBox",
   "stages": {
     "dev": {
-      "api_gateway_stage": "api"
+      "api_gateway_stage": "secureBox-api",
+      "manage_iam_role": false,
+      "iam_role_arn": "arn:aws:iam::315581712772:role/SecureBoxLambda"
     }
   }
 }

@@ -1,1 +1,1 @@
-from SecureBox.chalicelib.db import Database, CURRENT_ENV
+from chalicelib.db import Database
