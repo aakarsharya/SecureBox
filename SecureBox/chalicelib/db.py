@@ -6,14 +6,13 @@ dynamodb = boto3.resource('dynamodb')
 
 class Database:
     m_table = dynamodb.Table('ClientData')
-    m_size = 0
     
     def open_box(self, boxID, access):
         try:
             item = self.getItem(boxID)
-            if access == item['access_code']:
+            if int(access) == item['access_code']:
                 return True
-            if access in item['orders']:
+            if str(access) in item['orders']:
                 self.deleteOrder(boxID, access)
                 return True
             return False
@@ -23,46 +22,52 @@ class Database:
             else:
                 raise e
 
-
-    def register(self, boxID, phone_number, email, password, orders, access_code, lock_status):
+    def register(self, boxID, access_code, orders, lock_status, phone_number, email, password):
         item = {
-            'box_id': boxID,
-            'access_code': access_code,
-            'email': email,
-            'orders': orders,
-            'password': access_code,
-            'phone_number': phone_number,
-            'locked': lock_status
+            'box_id': int(boxID),
+            'access_code': int(access_code),
+            'orders': set(orders),
+            'locked': bool(lock_status),
+            'phone_number': str(phone_number),
+            'email': str(email),
+            'password': str(password),
         }
         try:
             self.m_table.put_item(
-            Item=item,
-            ConditionExpression='attribute_not_exists(box_id)'
+                Item=item
             )
+            return True
         except botocore.exceptions.ClientError as e:
             if e.response['Error']['Code'] != 'ConditionalCheckFailedException':
                 print('This box_id already exists.')
             else:
                 raise e
+            return False
 
-    def deleteItem(self, boxID):
+    def unregister(self, boxID):
         self.m_table.delete_item(
-            Key = {'box_id':boxID}
+            Key = {'box_id': int(boxID)}
         )
     
     def addOrder(self, boxID, tracking_id):
         self.m_table.update_item(
-            Key = {'box_id':boxID},
+            Key = {'box_id': int(boxID)},
             UpdateExpression = 'ADD orders :new_order',
             ExpressionAttributeValues = {':new_order': {tracking_id}}
         )
     
     def deleteOrder(self, boxID, tracking_id):
         self.m_table.update_item(
-            Key = {'box_id':boxID},
+            Key = {'box_id': int(boxID)},
             UpdateExpression = 'DELETE orders :order',
             ExpressionAttributeValues = {':order': {tracking_id}}
         )
+
+    def getItem(self, boxID):
+        item = self.m_table.get_item(
+            Key={'box_id': int(boxID)}
+        )
+        return item['Item']
 
     def setLockStatus(self, boxID, lockStatus):
         self.m_table.update_item(
@@ -70,20 +75,40 @@ class Database:
             UpdateExpression = 'SET locked = :status',
             ExpressionAttributeValues = {':status': lockStatus}
         )
+    
+    def getLockStatus(self, boxID):
+        item = self.getItem(int(boxID))
+        return item['locked']
 
     def setAccessCode(self, boxID, access_code):
         self.m_table.update_item(
-            Key = {'box_id': boxID},
+            Key = {'box_id': int(boxID)},
             UpdateExpression = 'SET access_code = :code',
             ExpressionAttributeValues = {':code': access_code}
         )
+    
+    def getAccessCode(self, boxID):
+        item = self.getItem(int(boxID))
+        return item['access_code']
 
-    def getItem(self, boxID):
-        item = self.m_table.get_item(
-            Key={'box_id':boxID}
+    def setEmail(self, boxID, email):
+        self.m_table.update_item(
+            Key = {'box_id': int(boxID)},
+            UpdateExpression = 'SET email = :new_email',
+            ExpressionAttributeValues = {':new_email': email}
         )
-        return item['Item']
 
-    def getLockStatus(self, boxID):
-        item = self.getItem(boxID)
-        return item['locked']
+    def getEmail(self, boxID):
+        item = self.getItem(int(boxID))
+        return item['email']
+
+    def setPhoneNumber(self, boxID, phone_number):
+        self.m_table.update_item(
+            Key = {'box_id': int(boxID)},
+            UpdateExpression = 'SET phone_number = :num',
+            ExpressionAttributeValues = {':num': phone_number}
+        )
+
+    def getPhoneNumber(self, boxID):
+        item = self.getItem(int(boxID))
+        return item['phone_number']
