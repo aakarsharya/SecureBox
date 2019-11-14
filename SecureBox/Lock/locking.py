@@ -48,6 +48,7 @@ def inputKeys():
     print("Enter access code or tracking ID followed by *")
     keypad.setDebounceTime(50)
     key = ''
+    code = ''
     while(key != '*'):
         key = keypad.getKey()
         if (key != keypad.NULL and key != '*'):
