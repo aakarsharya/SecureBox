@@ -6,11 +6,11 @@ app = Chalice(app_name='SecureBox')
 app.debug = True
 db = Database()
 
-@app.route('/authenticateUser', methods=['POST'])
-def authenticateUser():
-    request = app.current_request.json_body  # payload of check
-    authorized = db.open_box(request['box_id'], request['access_code'])
-    return {'Open': request}
+@app.route('/authenticate', methods=['POST'])
+def authenticate():
+    request = app.current_request.json_body  # payload of check        
+    authorized = db.openBox(request['box_id'], request['code'])
+    return {'Open': authorized}
 
 @app.route('/register', methods=['POST'])
 def register():

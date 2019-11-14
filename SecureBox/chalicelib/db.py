@@ -7,10 +7,10 @@ dynamodb = boto3.resource('dynamodb')
 class Database:
     m_table = dynamodb.Table('ClientData')
     
-    def open_box(self, boxID, access):
+    def openBox(self, boxID, access):
         try:
             item = self.getItem(boxID)
-            if int(access) == item['access_code']:
+            if str(access) == item['access_code']:
                 return True
             if str(access) in item['orders']:
                 self.deleteOrder(boxID, access)
@@ -25,7 +25,7 @@ class Database:
     def register(self, boxID, access_code, orders, lock_status, phone_number, email, password):
         item = {
             'box_id': int(boxID),
-            'access_code': int(access_code),
+            'access_code': str(access_code),
             'orders': set(orders),
             'locked': bool(lock_status),
             'phone_number': str(phone_number),
