@@ -97,7 +97,7 @@ class Database:
             UpdateExpression = 'SET email = :new_email',
             ExpressionAttributeValues = {':new_email': email}
         )
-
+        
     def getEmail(self, boxID):
         item = self.getItem(int(boxID))
         return item['email']

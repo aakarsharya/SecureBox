@@ -4,8 +4,17 @@
   "stages": {
     "dev": {
       "api_gateway_stage": "secureBox-api",
+<<<<<<< HEAD
+      "lambda_functions": {
+        "secureBoxEventHandler": {
+          "manage_iam_role": "False",
+          "iam_role_arn": "arn:aws:iam::315581712772:role/SecureBoxLambda"
+        }
+      }
+=======
       "manage_iam_role": false,
       "iam_role_arn": "arn:aws:iam::315581712772:role/SecureBoxLambda"
+>>>>>>> master
     }
   }
 }
