@@ -6,18 +6,18 @@ Communication:
 
 Lambda:
 - functions used by website:
-	- authenticate_website()	// through password + email
+	- authenticate_website()			// through password + email
 	- register()				
 	- deleteUser()				
 	- addOrder()				
-	- deleteOrder()				// month after order is entered or manually
+	- deleteOrder()						// month after order is entered or manually
 	- getLockStatus()			
 	- setPassword()				
 	- setEmail()				
 	- setPhoneNumber()			
 - functions used by RasberryPi:	
-	- authenticate_pi()			// through access_code + box_id
-	- deleteOrder()				// when tracking_id is entered 
+	- authenticate_pi()					// through access_code + box_id
+	- deleteOrder()						// when tracking_id is entered 
 	- setLockStatus()			
 	- setAccessCode()			
 	- getPhoneNumber()			
@@ -26,18 +26,19 @@ Lambda:
 RasberryPi:
 - unlock()						
 - lock()						
-- notifyUser() 					// text user when box is unlocked, then locked (order has arrived)
-- inputAccessCode()				// unlock if access code matches code in database
-- inputTrackingID()				// unlock if tracking_id exists in orders[]
+- notifyUser() 							// text user when box is unlocked, then locked (order has arrived)
+- inputAccessCode()						// unlock if access code matches code in database
+- inputTrackingID()						// unlock if tracking_id exists in orders[]
 - resetAccessCode()				
-- wait20seconds()				// time for delivery man to drop off package in box
+- wait20seconds()						// time for delivery man to drop off package in box
 
 Website:
-- Login/Register				// Using Amazon Cognito user pools
+- Login/Register						// Using Amazon Cognito user pools
 - View my Orders + Box Status			// refresh button to check current box lock status 
-- Edit My Profile 				// change phone number, email, password, access_code.
+- Edit My Profile 						// change phone number, email, password, access_code.
 
 TODO:
+- Create functions to call REST API from RasberryPi				// November 15
 - RasberryPi program hardware									// November 15
 - Test RasberryPi read/write to database + texting feature		// November 17
 - Website UI 											        // November 24
