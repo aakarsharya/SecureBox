@@ -7,7 +7,21 @@ dynamodb = boto3.resource('dynamodb')
 class Database:
     m_table = dynamodb.Table('ClientData')
     m_size = 0
-    #def authenticate(self, boxID):
+    
+    def open_box(self, boxID, access):
+        try:
+            item = self.getItem(boxID)
+            if access == item['access_code']:
+                return True
+            if access in item['orders']:
+                self.deleteOrder(boxID, access)
+                return True
+            return False
+        except botocore.exceptions.ClientError as e:
+            if e.response['Error']['Code'] == 'ResourceNotFoundException': # check this error
+                return False
+            else:
+                raise e
 
 
     def register(self, boxID, phone_number, email, password, orders, access_code, lock_status):
@@ -28,6 +42,8 @@ class Database:
         except botocore.exceptions.ClientError as e:
             if e.response['Error']['Code'] != 'ConditionalCheckFailedException':
                 print('This box_id already exists.')
+            else:
+                raise e
 
     def deleteItem(self, boxID):
         self.m_table.delete_item(
@@ -71,6 +87,3 @@ class Database:
     def getLockStatus(self, boxID):
         item = self.getItem(boxID)
         return item['locked']
-
-db = Database()
-db.setAccessCode(456789, '1342')
