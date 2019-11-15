@@ -15,5 +15,6 @@ def textUser(phoneNumber, trackingID):
     client.messages.create(
         to=phoneNumber,
         from_=TWILIO_NUM,
-        body='Your order: ' + trackingID + 'has arrived! '
+        body='Your order: ' + trackingID + ' has arrived. \nIt is safe with SecureBox!'
     )
+

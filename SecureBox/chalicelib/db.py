@@ -1,7 +1,7 @@
 import boto3
 from boto3.dynamodb.conditions import Key, Attr
 import botocore
-from chalicelib.text import textUser
+from text import textUser
 
 dynamodb = boto3.resource('dynamodb')
 
