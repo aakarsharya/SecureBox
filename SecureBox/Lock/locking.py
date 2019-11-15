@@ -52,7 +52,7 @@ BOX_ID = 123456
 
 def inputKeys():
     keypad = Keypad.Keypad(keys, rowsPins, colsPins, ROWS, COLS)
-    lcd.message("Enter code, then *")
+    lcd.message("Enter code, \nthen *")
     time.sleep(2)
     lcd.clear()
     keypad.setDebounceTime(50)
@@ -86,7 +86,7 @@ def authenticate():
         time.sleep(1)
         lcd.clear()
     else:
-        lcd.message("INCORRECT CODE/ID")
+        lcd.message("INCORRECT!")
         time.sleep(1)
         lcd.clear()
 
