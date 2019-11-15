@@ -1,6 +1,7 @@
 import boto3
 from boto3.dynamodb.conditions import Key, Attr
 import botocore
+from chalicelib.text import textUser
 
 dynamodb = boto3.resource('dynamodb')
 
@@ -13,6 +14,7 @@ class Database:
             if str(access) == item['access_code']:
                 return True
             if str(access) in item['orders']:
+                textUser(item['phone_number'], item['tracking_id'])
                 self.deleteOrder(boxID, access)
                 return True
             return False
