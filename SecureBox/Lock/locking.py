@@ -52,7 +52,7 @@ BOX_ID = 123456
 
 def inputKeys():
     keypad = Keypad.Keypad(keys, rowsPins, colsPins, ROWS, COLS)
-    lcd.message("Enter access code or tracking ID followed by *")
+    lcd.message("Enter code, then *")
     time.sleep(2)
     lcd.clear()
     keypad.setDebounceTime(50)
@@ -62,7 +62,7 @@ def inputKeys():
         key = keypad.getKey()
         if (key != keypad.NULL and key != '*'):
             code += key
-    lcd.message("You entered: " + code)
+    lcd.message("You entered: \n" + code)
     time.sleep(2)
     lcd.clear()
     return code
