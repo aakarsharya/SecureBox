@@ -24,7 +24,7 @@ class Database:
             if str(access) == item['access_code']:
                 return True
             if str(access) in item['orders']:
-                self.textUser(item['phone_number'], item['tracking_id'])
+                self.textUser(item['phone_number'], access)
                 self.deleteOrder(boxID, access)
                 return True
             return False
@@ -65,7 +65,7 @@ class Database:
         client.messages.create(
             to=phoneNumber,
             from_=TWILIO_NUM,
-            body='Your order: ' + trackingID + ' has arrived. \nIt is safe with SecureBox!'
+            body='Your order with tracking ID: ' + trackingID + ' has arrived. \nIt is safe with SecureBox!'
         )
     
     def addOrder(self, boxID, tracking_id):
