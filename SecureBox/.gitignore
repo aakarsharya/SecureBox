@@ -1,6 +1,4 @@
 .vscode/
-.chalice/deployments
-.chalice/venv
-.chalice/config.json
+.chalice/
 __pycache__/
 chalicelib/__pycache__/
