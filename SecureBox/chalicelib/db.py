@@ -2,22 +2,18 @@ import boto3
 from boto3.dynamodb.conditions import Key, Attr
 import botocore
 import os
-from dotenv import load_dotenv
 from twilio.rest import Client
+from chalicelib.env import AUTH_TOKEN, ACCOUNT_SID, TWILIO_NUM
 
 # DynamoDB
 dynamodb = boto3.resource('dynamodb')
 
 # Twilio API setup
-load_dotenv()
-ACCOUNT_SID = os.getenv("ACCOUNT_SID")
-AUTH_TOKEN = os.getenv("AUTH_TOKEN")
-TWILIO_NUM = os.getenv("TWILIO_NUM")
 client = Client(ACCOUNT_SID, AUTH_TOKEN)
 
 class Database:
     m_table = dynamodb.Table('ClientData')
-    
+
     def openBox(self, boxID, access):
         try:
             item = self.getItem(boxID)
@@ -131,3 +127,4 @@ class Database:
     def getPhoneNumber(self, boxID):
         item = self.getItem(int(boxID))
         return item['phone_number']
+

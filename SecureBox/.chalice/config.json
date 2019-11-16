@@ -4,6 +4,11 @@
   "stages": {
     "dev": {
       "api_gateway_stage": "secureBox-api",
+      "environment_variables": {
+        "ACCOUNT_SID": "ACf67acf4d28c0179345cff20994e926ea",
+        "AUTH_TOKEN": "e53a09c5e5141120bdba9fd42085517e",
+        "TWILIO_NUM": "+19073187478"
+      },
       "manage_iam_role": false,
       "iam_role_arn": "arn:aws:iam::315581712772:role/SecureBoxLambda"
     }
