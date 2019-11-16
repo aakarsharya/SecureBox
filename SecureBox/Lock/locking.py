@@ -1,9 +1,10 @@
-import RPi.GPIO as GPIO
-import Keypad
 import time
 import requests
 import json
 
+# Rasberry Pi + Freenove libraries
+import RPi.GPIO as GPIO
+import Keypad
 from PCF8574 import PCF8574_GPIO
 from Adafruit_LCD1602 import Adafruit_CharLCD
 from time import sleep, strftime
@@ -43,7 +44,7 @@ lcd = Adafruit_CharLCD(pin_rs=0, pin_e=2, pins_db=[4,5,6,7], GPIO=mcp)
 mcp.output(3,1)     # turn on LCD backlight
 lcd.begin(16,2)     # set number of LCD lines and columns
 
-# API calls
+# REST API calls
 url = 'https://habnjhheq5.execute-api.us-east-2.amazonaws.com/secureBox-api/'
 headers = {'Content-Type': 'application/json', 'Accept': 'application/json'}
 

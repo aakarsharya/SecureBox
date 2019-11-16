@@ -1,18 +1,26 @@
 import boto3
 from boto3.dynamodb.conditions import Key, Attr
 import botocore
+import os
+from twilio.rest import Client
+from chalicelib.env import AUTH_TOKEN, ACCOUNT_SID, TWILIO_NUM
 
+# DynamoDB
 dynamodb = boto3.resource('dynamodb')
+
+# Twilio API setup
+client = Client(ACCOUNT_SID, AUTH_TOKEN)
 
 class Database:
     m_table = dynamodb.Table('ClientData')
-    
+
     def openBox(self, boxID, access):
         try:
             item = self.getItem(boxID)
             if str(access) == item['access_code']:
                 return True
             if str(access) in item['orders']:
+                self.textUser(item['phone_number'], access)
                 self.deleteOrder(boxID, access)
                 return True
             return False
@@ -47,6 +55,13 @@ class Database:
     def unregister(self, boxID):
         self.m_table.delete_item(
             Key = {'box_id': int(boxID)}
+        )
+    
+    def textUser(self, phoneNumber, trackingID):
+        client.messages.create(
+            to=phoneNumber,
+            from_=TWILIO_NUM,
+            body='Your order with tracking ID: ' + trackingID + ' has arrived. \nIt is safe with SecureBox!'
         )
     
     def addOrder(self, boxID, tracking_id):
@@ -112,3 +127,4 @@ class Database:
     def getPhoneNumber(self, boxID):
         item = self.getItem(int(boxID))
         return item['phone_number']
+
