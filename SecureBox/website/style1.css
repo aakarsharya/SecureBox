@@ -1,0 +1,90 @@
+.body{
+	position: fixed;
+	width: 100%;
+	top: -20px;
+	right: -40px;
+	left: -40px;
+	bottom: -40px;
+	width: auto;
+	height: auto;
+	-webkit-filter: blur(0px);
+}
+
+.head {
+	text-align: center;
+	position: absolute;
+	top: 50%;
+	bottom: 50%;
+}
+
+.header div{
+	float: left;
+	color: #000000;
+	font-family: 'Exo', sans-serif;
+	font-size: 50px;
+	font-weight: 200;
+}
+
+.header div span {
+	color: #F29E20;
+}
+
+.login {
+	position: absolute;
+	top: 75px;
+	bottom: 80px);
+	height: 150px;
+	width: 350px;
+	padding: 10px;
+}
+
+.login input [type=text]{
+	width: 250
+	height: 20;
+	background transparent;
+	border: lpx solid rgba(255,255,255,0.6);
+	border-radius: 2px;
+	color: #fff;
+	font-family: 'Exo', sans-serif;
+	font-size: 16px;
+	font-weight: 400;
+	padding: 4px;
+}
+
+.login input [type=button]:hover{
+	opacity: 0.8;
+}
+
+.login input [type=button]:active{
+	opacity: 0.6;
+}
+
+.login input [type=text]:focus{
+	outline: none;
+	border: lpx solid rgba(255,255,255,0.9);
+}
+
+.login input [type=password]:focus{
+	outline: none;
+	border: lpx solid rgba(255,255,255,0.9);
+}
+
+.login input [type=button]:focus{
+	outline: none;
+}
+
+::-webkit-input-placeholder {
+	color: rgba(255,255,255,0.6);
+}
+
+::-moz-input-placeholder {
+	color: rgba(255,255,255,0.6);
+}
+
+
+
+
+
+
+
+
