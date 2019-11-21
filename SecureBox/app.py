@@ -15,9 +15,8 @@ def authenticate():
 @app.route('/register', methods=['POST'])
 def register():
     request = app.current_request.json_body
-    registered = db.register(request['box_id'], request['access_code'], request['orders'], request['locked'], 
-                request['phone_number'], request['email'], request['password'])
-    return {'Registered': registered}
+    registered = db.register(request['box_id'], request['access_code'], request['phone_number'], request['username'])
+    return {"Registered": registered}
 
 @app.route('/addOrder', methods=['POST'])
 def addOrder():
@@ -46,16 +45,16 @@ def getLockStatus():
     lock_status = db.getLockStatus(request['box_id'])
     return {'locked': lock_status}
 
-@app.route('/setEmail', methods=['POST'])
-def setEmail():
+@app.route('/setUsername', methods=['POST'])
+def setUsername():
     request = app.current_request.json_body
-    db.setEmail(request['box_id'], request['email'])
+    db.setUsername(request['box_id'], request['username'])
 
-@app.route('/getEmail', methods=['POST'])
-def getEmail():
+@app.route('/getUsername', methods=['POST'])
+def getUsername():
     request = app.current_request.json_body
-    email = db.getEmail(request['box_id'])
-    return {'email': email}
+    username = db.getUsername(request['box_id'])
+    return {'username': username}
 
 @app.route('/setPhoneNumber', methods=['POST'])
 def setPhoneNumber():
@@ -67,5 +66,16 @@ def getPhoneNumber():
     request = app.current_request.json_body
     phone_number = db.getPhoneNumber(request['box_id'])
     return {'phone_number': phone_number}
+
+@app.route('/setAccessCode', methods=['POST'])
+def setPhoneNumber():
+    request = app.current_request.json_body
+    db.setAccessCode(request['box_id'], request['access_code'])
+
+@app.route('/viewOrders', methods=['POST'])
+def viewOrders():
+    request = app.current_request.json_body
+    orders = db.getOrders(request['box_id'])
+    return {"Orders": list(orders)}
 
 

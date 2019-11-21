@@ -3,7 +3,10 @@ from boto3.dynamodb.conditions import Key, Attr
 import botocore
 import os
 from twilio.rest import Client
-from chalicelib.env import AUTH_TOKEN, ACCOUNT_SID, TWILIO_NUM
+#from chalicelib.env import AUTH_TOKEN, ACCOUNT_SID, TWILIO_NUM
+ACCOUNT_SID = os.getenv("ACCOUNT_SID")
+AUTH_TOKEN = os.getenv("AUTH_TOKEN")
+TWILIO_NUM = os.getenv("TWILIO_NUM")
 
 # DynamoDB
 dynamodb = boto3.resource('dynamodb')
@@ -15,53 +18,45 @@ class Database:
     m_table = dynamodb.Table('ClientData')
 
     def openBox(self, boxID, access):
-        try:
-            item = self.getItem(boxID)
-            if str(access) == item['access_code']:
-                return True
-            if str(access) in item['orders']:
-                self.textUser(item['phone_number'], access)
-                self.deleteOrder(boxID, access)
-                return True
-            return False
-        except botocore.exceptions.ClientError as e:
-            if e.response['Error']['Code'] == 'ResourceNotFoundException': # check this error
-                return False
-            else:
-                raise e
+        item = self.getItem(boxID)
+        if str(access) == item['access_code']:
+            return True
+        if str(access) in item['orders']:
+            self.textUser(item['phone_number'], access, item['username'])
+            self.deleteOrder(boxID, access)
+            return True
+        return False
 
-    def register(self, boxID, access_code, orders, lock_status, phone_number, email, password):
-        item = {
-            'box_id': int(boxID),
-            'access_code': str(access_code),
-            'orders': set(orders),
-            'locked': bool(lock_status),
-            'phone_number': str(phone_number),
-            'email': str(email),
-            'password': str(password),
-        }
+    def register(self, boxID, access_code, phone_number, username):
+        response = self.m_table.query(
+            KeyConditionExpression=Key('box_id').eq(int(boxID))
+        )
         try:
+            if (boxID == response['Items'][0]['box_id']):
+                return False
+        except IndexError:
+            item = {
+                'box_id': int(boxID),
+                'access_code': str(access_code),
+                'locked': True,
+                'phone_number': str(phone_number),
+                'username': str(username)
+            }
             self.m_table.put_item(
                 Item=item
-            )
+            )        
             return True
-        except botocore.exceptions.ClientError as e:
-            if e.response['Error']['Code'] != 'ConditionalCheckFailedException':
-                print('This box_id already exists.')
-            else:
-                raise e
-            return False
 
     def unregister(self, boxID):
         self.m_table.delete_item(
             Key = {'box_id': int(boxID)}
         )
     
-    def textUser(self, phoneNumber, trackingID):
+    def textUser(self, phoneNumber, trackingID, username):
         client.messages.create(
             to=phoneNumber,
             from_=TWILIO_NUM,
-            body='Your order with tracking ID: ' + trackingID + ' has arrived. \nIt is safe with SecureBox!'
+            body='Hey ' + username + '! Your order with tracking ID: ' + trackingID + ' has arrived. \nIt is safe with SecureBox!'
         )
     
     def addOrder(self, boxID, tracking_id):
@@ -77,6 +72,10 @@ class Database:
             UpdateExpression = 'DELETE orders :order',
             ExpressionAttributeValues = {':order': {tracking_id}}
         )
+
+    def getOrders(self, boxID):
+        item = self.getItem(boxID)
+        return item['orders']
 
     def getItem(self, boxID):
         item = self.m_table.get_item(
@@ -106,16 +105,16 @@ class Database:
         item = self.getItem(int(boxID))
         return item['access_code']
 
-    def setEmail(self, boxID, email):
+    def setUsername(self, boxID, username):
         self.m_table.update_item(
             Key = {'box_id': int(boxID)},
-            UpdateExpression = 'SET email = :new_email',
-            ExpressionAttributeValues = {':new_email': email}
+            UpdateExpression = 'SET username = :username',
+            ExpressionAttributeValues = {':username': username}
         )
         
-    def getEmail(self, boxID):
+    def getUsername(self, boxID):
         item = self.getItem(int(boxID))
-        return item['email']
+        return item['username']
 
     def setPhoneNumber(self, boxID, phone_number):
         self.m_table.update_item(

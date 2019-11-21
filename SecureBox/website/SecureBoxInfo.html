@@ -1,53 +1,50 @@
 <!DOCTYPE html>
 
 <html lang="en">
-        <head>
-                <meta charset="utf-8">
-                <link type="text/css" rel="stylesheet" href="main.css">
-                <title> SecureBox </title>
-        </head>
-<h1> 
-    SecureBox
-</h1>
+<head>
+        <meta charset="utf-8">
+        <link type="text/css" rel="stylesheet" href="style.css">
+        <title> SecureBox </title>
+</head>
+<h1>SecureBox</h1>
 <body>
-    <div class = "AddOrder">
-        <button class="button1" onclick="AddOrder()">Add Order</button>
-        <input type="text" id="trackingID">
-        <script >
-            function AddOrder() {
-                let tracking_id=document.getElementById("trackingID").value;
-                alert(tracking_id);
-                const toSend = {
-                    "box_id": Number(123456),
-                    "tracking_id": String(tracking_id)
-                };
-                const json_string = JSON.stringify(toSend);
-                const url="https://habnjhheq5.execute-api.us-east-2.amazonaws.com/secureBox-api/addOrder";
-                let response = await fetch(url, {
-                    method: "POST",
-                    body: json_string,
-                    headers: "application/json"
-                });
-                alert(response);
-                /*
-                const url="https://habnjhheq5.execute-api.us-east-2.amazonaws.com/secureBox-api/addOrder";
-                const toSend = {
-                    'box_id': Number(123456),
-                    'tracking_id': String(tracking_id)
-                }
-                const json_string = JSON.stringify(toSend);
-                const xhr = new XMLHttpRequest();
-                xhr.open("POST", url);
-                xhr.setRequestHeader("Content-Type", "application/json");
-                xhr.send(json_string);
-                */
-            }
-        </script>
+    <h2 id="header">My Box</h2>
+    <div class="authenticate">
+        <button onclick="authenticate()" id="authenticateButton">authenticate</button>
+        <input type="text" id="boxID" class="textField">
+        <input type="text" id="access_code" class="textField">
+        <p id="authenticated" class="response"></p>
+        <script type="text/javascript" src="main.js"></script>
+    </div>
+    <div class="addOrder">
+        <button onclick="addOrder()" id="addOrderButton">add order</button>
+        <input type="text" id="trackingID" class="textField">
+        <p id="needAccess" class="response"></p>
+        <script type="text/javascript" src="main.js"></script>
     </div>  
-    <div class = "BoxStatus">
-    <button class="button2">Check Box Status</button>
+    <div class="orders">
+        <button onclick="viewOrders()" id="viewOrdersButton">view my orders</button>
+        <script type="text/javascript" src="main.js"></script>
+        <p id="orders" class="response"></p>
+    </div>
+    <div class = "boxStatus">
+        <button onclick="getLockStatus()" id="getLockStatusButton">box status</button>
+        <script type="text/javascript" src="main.js"></script>
+        <p id="boxStatus" class="response"></p>
+    </div>
+    <h2 id="profileHeader">My Profile</h2>
+    <div class="profile">
+        <p id="phoneNum" class="response"></p>
+    </div>
+    <div class="accessCode"> 
+        <button onclick="setAccessCode()" id="setAccessCodeButton">reset access code</button>
+        <input type="password" id="accessCode" class="textField">
+        <p id="needAccess1"></p>
+        <script type="text/javascript" src="main.js"></script>
+    </div>
+    <div class="register">
+        <button id="registerButton"><a href="register.html">register</a></button>
+        <p id="notMember">    Not a member?</p>
     </div>
 </body>
-
-
 </html>

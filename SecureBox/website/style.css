@@ -1,0 +1,165 @@
+h1 {
+    font-family: "Courier New", Courier, monospace;
+    color: orange;
+    font-size: 4em;
+    text-align: center;
+    font-weight: 100;
+}
+
+h2 {
+    font-family: "Courier New", Courier, monospace;
+    color: orange;
+    font-size: 2em;
+    font-weight: 100;
+    border: 1px solid orange;
+    padding: 7px;
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+
+.accessCode {
+    display: block;
+}
+
+.addOrder {
+    display: block;
+}
+
+.boxStatus {
+    display: block;
+}
+
+#email {
+    display: block;
+    padding: 10px;
+    font-family: "Courier New", Courier, monospace;
+    color: orange;
+    font-size: 18px;
+}
+
+#phoneNum {
+    display: block;
+    font-family: "Courier New", Courier, monospace;
+    color: orange;
+    font-size: 18px;
+}
+
+button {
+    padding: 10px;
+    margin: 2.5px;
+    font-family: "Courier New", Courier, monospace;
+    font-size: 18px;
+    -webkit-transition-duration: 0.4s; 
+    transition-duration: 0.4s;
+    border-radius: 8px;
+    background-color: orange;
+    color: white;
+}
+
+button:hover {
+    background-color: white; 
+    color: black;
+}
+
+.info label {
+    position: absolute;
+    font-family: "Courier New", Courier, monospace;
+    font-size: 25px;
+    color: orange;
+    margin-top: 0.5em;
+}
+
+.info input {
+    margin-left: 12em;
+    font-family: "Courier New", Courier, monospace;
+    font-size: 18px;
+    color: orange;
+}
+
+.textField {
+    display: inline;
+    padding: 10px;
+    margin: 2.5px;
+    font-family: "Courier New", Courier, monospace;
+    font-size: 18px;
+    color: orange;
+}
+
+.response {
+    display: inline;
+    padding: 10px;
+    font-family: "Courier New", Courier, monospace;
+    color: orange;
+    font-size: 1.5em;
+    padding: 10px;
+    margin: 2.5px;
+}
+
+#registerButton {
+    padding: 10px;
+    margin: 2.5px;
+    font-family: "Courier New", Courier, monospace;
+    font-size: 18px;
+    -webkit-transition-duration: 0.4s; 
+    transition-duration: 0.4s;
+    border-radius: 8px;
+    background-color: rgb(4, 133, 57);
+    color: white;
+    position: absolute;
+    bottom: 60px;
+    left: 35%;
+    width: 30%;
+} 
+
+a {
+    color: inherit;
+    text-decoration: inherit;
+}
+
+#registerButton:hover {
+    background-color: white; 
+    color: black;
+}
+
+#registerButton2 {
+    padding: 10px;
+    margin: 2.5px;
+    font-family: "Courier New", Courier, monospace;
+    font-size: 18px;
+    -webkit-transition-duration: 0.4s; 
+    transition-duration: 0.4s;
+    border-radius: 8px;
+    background-color: rgb(4, 133, 57);
+    color: white;
+    position: absolute;
+    bottom: 60px;
+    left: 35%;
+    width: 30%;
+} 
+
+#registerButton2:hover {
+    background-color: white; 
+    color: black;
+}
+
+#result {
+    font-family: "Courier New", Courier, monospace;
+    font-size: 1.5em;
+    text-align: center;
+}
+
+.btn {
+    position: absolute;
+    top: 50px;
+    left: 30px;
+}
+
+#notMember {
+    font-family: "Courier New", Courier, monospace;
+    font-size: 12px;
+    position: absolute;
+    bottom: 20px;
+    left: 46%;
+    width: 8%;
+}
+
