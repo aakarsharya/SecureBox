@@ -3,7 +3,8 @@ from boto3.dynamodb.conditions import Key, Attr
 import botocore
 import os
 from twilio.rest import Client
-#from chalicelib.env import AUTH_TOKEN, ACCOUNT_SID, TWILIO_NUM
+from twilio.base.exceptions import TwilioRestException
+
 ACCOUNT_SID = os.getenv("ACCOUNT_SID")
 AUTH_TOKEN = os.getenv("AUTH_TOKEN")
 TWILIO_NUM = os.getenv("TWILIO_NUM")
@@ -18,13 +19,14 @@ class Database:
     m_table = dynamodb.Table('ClientData')
 
     def openBox(self, boxID, access):
-        item = self.getItem(boxID)
-        if str(access) == item['access_code']:
-            return True
-        if str(access) in item['orders']:
-            self.textUser(item['phone_number'], access, item['username'])
-            self.deleteOrder(boxID, access)
-            return True
+        item, exists = self.getItem(boxID)
+        if exists:
+            if str(access) == item['access_code']:
+                return True
+            if str(access) in item['orders']:
+                self.textUser(item['phone_number'], item['username'], trackingID=access)
+                self.deleteOrder(boxID, access)
+                return True
         return False
 
     def register(self, boxID, access_code, phone_number, username):
@@ -44,7 +46,8 @@ class Database:
             }
             self.m_table.put_item(
                 Item=item
-            )        
+            )       
+            self.textUser(phone_number, username, trackingID=None, event='register') 
             return True
 
     def unregister(self, boxID):
@@ -52,12 +55,26 @@ class Database:
             Key = {'box_id': int(boxID)}
         )
     
-    def textUser(self, phoneNumber, trackingID, username):
-        client.messages.create(
-            to=phoneNumber,
-            from_=TWILIO_NUM,
-            body='Hey ' + username + '! Your order with tracking ID: ' + trackingID + ' has arrived. \nIt is safe with SecureBox!'
-        )
+    def textUser(self, phoneNumber, username, trackingID, event='authenticate'):
+        if event == 'register':
+            try:
+                client.messages.create(
+                    to=phoneNumber,
+                    from_=TWILIO_NUM,
+                    body='Hey ' + username + '! Thanks for registering with SecureBox. Add a new order from the home page!'
+                )
+            except TwilioRestException:
+                print('add number to twilio account')
+        else:
+            try: 
+                client.messages.create(
+                    to=phoneNumber,
+                    from_=TWILIO_NUM,
+                    body='Hey ' + username + '! Your order with tracking ID: ' + trackingID + ' has arrived. \nIt is safe with SecureBox!'
+                )
+            except TwilioRestException:
+                print('add phone number to twilio account')
+
     
     def addOrder(self, boxID, tracking_id):
         self.m_table.update_item(
@@ -74,14 +91,22 @@ class Database:
         )
 
     def getOrders(self, boxID):
-        item = self.getItem(boxID)
-        return item['orders']
+        item, exists = self.getItem(boxID)
+        if exists:
+            try:
+                return item['orders']
+            except KeyError:
+                return {'no orders.'}
+        return {'invalid box ID.'}
 
     def getItem(self, boxID):
-        item = self.m_table.get_item(
-            Key={'box_id': int(boxID)}
-        )
-        return item['Item']
+        try:
+            item = self.m_table.get_item(
+                Key={'box_id': int(boxID)}
+            )
+            return item['Item'], True
+        except KeyError:
+            return 'invalid box ID.', False
 
     def setLockStatus(self, boxID, lockStatus):
         self.m_table.update_item(
@@ -91,8 +116,10 @@ class Database:
         )
     
     def getLockStatus(self, boxID):
-        item = self.getItem(int(boxID))
-        return item['locked']
+        item, exists = self.getItem(int(boxID))
+        if exists:
+            return item['locked']
+        return 'invalid box ID.'
 
     def setAccessCode(self, boxID, access_code):
         self.m_table.update_item(
@@ -102,8 +129,10 @@ class Database:
         )
     
     def getAccessCode(self, boxID):
-        item = self.getItem(int(boxID))
-        return item['access_code']
+        item, exists = self.getItem(int(boxID))
+        if exists:
+            return item['access_code']
+        return 'invalid box ID.'
 
     def setUsername(self, boxID, username):
         self.m_table.update_item(
@@ -113,8 +142,10 @@ class Database:
         )
         
     def getUsername(self, boxID):
-        item = self.getItem(int(boxID))
-        return item['username']
+        item, exists = self.getItem(int(boxID))
+        if exists:
+            return item['username']
+        return 'invalid box ID.'
 
     def setPhoneNumber(self, boxID, phone_number):
         self.m_table.update_item(
@@ -124,6 +155,7 @@ class Database:
         )
 
     def getPhoneNumber(self, boxID):
-        item = self.getItem(int(boxID))
-        return item['phone_number']
-
+        item, exists = self.getItem(int(boxID))
+        if exists:
+            return item['phone_number']
+        return 'invalid box ID.'

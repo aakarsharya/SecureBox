@@ -1,6 +1,5 @@
-// GLOBAL VARIABLES
-let box_id;
-let authenticated = false;
+var box_id;
+var authenticated = false;
 const proxy= "https://cors-anywhere.herokuapp.com/";
 const mainurl = "https://t8al0f4vqf.execute-api.us-east-2.amazonaws.com/secureBox-api/";
 
@@ -8,6 +7,11 @@ const mainurl = "https://t8al0f4vqf.execute-api.us-east-2.amazonaws.com/secureBo
 window.onload = function() {
     var btn = document.getElementById("authenticateButton");
     btn.onclick = authenticate;
+}
+
+window.onload = function() {
+    var btn = document.getElementById("registerButton2");
+    btn.onclick = register;
 }
 
 window.onload = function() {
@@ -30,18 +34,12 @@ window.onload = function() {
     btn.onclick = setAccessCode;
 }
 
-window.onload = function() {
-    var btn = document.getElementById("registerButton2");
-    btn.onclick = register;
-}
-
 // REST API requests
-
 function authenticate() {
     box_id=document.getElementById("boxID").value;
-    let accessCode=document.getElementById("access_code").value;
-    let url1 = proxy+mainurl+'authenticate';
-    let url2 = proxy+mainurl+'getUsername';
+    var accessCode=document.getElementById("access_code").value;
+    var url1 = proxy+mainurl+'authenticate';
+    var url2 = proxy+mainurl+'getUsername';
     const data = {'box_id': box_id, 'code': String(accessCode)}
     const stringData = JSON.stringify(data);
     const xhr = new XMLHttpRequest();
@@ -53,7 +51,7 @@ function authenticate() {
     xhr.onload = function() {
         if (xhr.readyState === 4) {
             if (xhr.status === 200) {
-                let obj = JSON.parse(xhr.responseText);
+                var obj = JSON.parse(xhr.responseText);
                 authenticated = obj.Open;
                 if (authenticated) {
                     document.getElementById("authenticated").innerHTML = 'success!'.fontcolor('green');
@@ -70,7 +68,7 @@ function authenticate() {
     xhr2.onload = function() {
         if (xhr2.readyState === 4) {
             if (xhr2.status === 200) {
-                let obj = JSON.parse(xhr2.responseText);
+                var obj = JSON.parse(xhr2.responseText);
                 if (authenticated) {
                     document.getElementById("profileHeader").innerHTML = obj.username + '\'s Profile';
                 } else {
@@ -87,9 +85,9 @@ function authenticate() {
 }  
 
 function addOrder() {
-    let tracking_id=document.getElementById("trackingID").value;
+    var tracking_id=document.getElementById("trackingID").value;
     if (authenticated) {
-        let url=proxy+mainurl+'addOrder';
+        var url=proxy+mainurl+'addOrder';
         const data = {'box_id': box_id, 'tracking_id': tracking_id}
         const stringData = JSON.stringify(data);
         const xhr = new XMLHttpRequest();
@@ -104,7 +102,7 @@ function addOrder() {
 
 function viewOrders() {
     if (authenticated) {
-        let url = proxy+mainurl+'viewOrders';
+        var url = proxy+mainurl+'viewOrders';
         const data = {'box_id': box_id}
         const stringData = JSON.stringify(data);
         const xhr = new XMLHttpRequest();
@@ -113,7 +111,7 @@ function viewOrders() {
         xhr.onload = function() {
             if (xhr.readyState === 4) {
                 if (xhr.status === 200) {
-                    let obj = JSON.parse(xhr.responseText);
+                    var obj = JSON.parse(xhr.responseText);
                     document.getElementById("orders").innerHTML = obj.Orders;
                 } else {
                     alert(xhr.statusText);
@@ -128,7 +126,7 @@ function viewOrders() {
 
 function getLockStatus() {
     if (authenticated) {
-        let url=proxy+mainurl+'getLockStatus';
+        var url=proxy+mainurl+'getLockStatus';
         const data = {'box_id': box_id}
         const stringData = JSON.stringify(data);
         const xhr = new XMLHttpRequest();
@@ -137,7 +135,7 @@ function getLockStatus() {
         xhr.onload = function() {
             if (xhr.readyState === 4) {
                 if (xhr.status === 200) {
-                    let obj = JSON.parse(xhr.responseText);
+                    var obj = JSON.parse(xhr.responseText);
                     if (obj.locked === true)
                         document.getElementById("boxStatus").innerHTML = 'locked';
                     else
@@ -156,14 +154,15 @@ function getLockStatus() {
 function setAccessCode() {
     if (authenticated) {
         document.getElementById("needAccess1").innerHTML = '';
-        let access_code=document.getElementById("accessCode").value;
-        let url = proxy+mainurl+'setAccessCode'
+        var access_code=document.getElementById("accessCode").value;
+        var url = proxy+mainurl+'setAccessCode'
         const data = {'box_id': box_id, 'access_code': String(access_code)}
         const stringData = JSON.stringify(data);
         const xhr = new XMLHttpRequest();
         xhr.open('POST', url);
         xhr.setRequestHeader("Content-Type", "application/json");
         xhr.send(stringData);
+        document.getElementById("needAccess1").innerHTML = 'success!'.fontcolor('green');
     } else {
         document.getElementById("needAccess1").innerHTML = 'must authenticate first.'.fontcolor('red');
     }
@@ -171,7 +170,7 @@ function setAccessCode() {
 
 function getPhoneNumber() {
     if (authenticated) {
-        let url=proxy+mainurl+'getPhoneNumber';
+        var url=proxy+mainurl+'getPhoneNumber';
         const data = {'box_id': box_id}
         const stringData = JSON.stringify(data);
         const xhr = new XMLHttpRequest();
@@ -180,7 +179,7 @@ function getPhoneNumber() {
         xhr.onload = function() {
             if (xhr.readyState === 4) {
                 if (xhr.status === 200) {
-                    let obj = JSON.parse(xhr.responseText);
+                    var obj = JSON.parse(xhr.responseText);
                     document.getElementById("phoneNum").innerHTML = 'Phone Number: ' + obj.phone_number;
                 } else {
                     alert(xhr.statusText);
@@ -193,10 +192,10 @@ function getPhoneNumber() {
 
 function register() {
     box_id=document.getElementById("box_id").value;
-    let access_code=document.getElementById("access_code").value;
-    let phone_number=document.getElementById("phoneNumber").value;
-    let username=document.getElementById("userName").value;
-    let url=proxy+mainurl+'register';
+    var access_code=document.getElementById("access_code").value;
+    var phone_number=document.getElementById("phoneNumber").value;
+    var username=document.getElementById("userName").value;
+    var url=proxy+mainurl+'register';
     const data = {'box_id': box_id, 'access_code': String(access_code), 'phone_number': String(phone_number), 'username': String(username)}
     const stringData = JSON.stringify(data);
     console.log(stringData);
@@ -206,7 +205,7 @@ function register() {
     xhr.onload = function() {
         if (xhr.readyState === 4) {
             if (xhr.status === 200) {
-                let obj = JSON.parse(xhr.responseText);
+                var obj = JSON.parse(xhr.responseText);
                 if (obj.Registered === true) {
                     document.getElementById("result").innerHTML = 'success!'.fontcolor('green');
                 } else {
@@ -219,3 +218,4 @@ function register() {
     }
     xhr.send(stringData);
 }
+

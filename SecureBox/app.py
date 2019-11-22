@@ -8,7 +8,7 @@ db = Database()
 
 @app.route('/authenticate', methods=['POST'])
 def authenticate():
-    request = app.current_request.json_body  # payload of check        
+    request = app.current_request.json_body    
     authorized = db.openBox(request['box_id'], request['code'])
     return {'Open': authorized}
 
