@@ -45,3 +45,7 @@ TODO:
 - Test Website read/write to database 							// December 1
 - Make box + locking servo motors								// December 6
 - Test AWS Gateway -> Lambda and cleanup front-end				// December 19
+
+Bugs:
+- Website input invalid box id (add try catch for key error in app.py/db.py)
+- add helper text in text fields

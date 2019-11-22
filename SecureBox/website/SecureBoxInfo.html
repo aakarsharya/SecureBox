@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+        <meta charset="utf-8">
+        <link type="text/css" rel="stylesheet" href="style.css">
+        <title> SecureBox </title>
+</head>
+<h1>SecureBox</h1>
+<body>
+    <h2 id="header">My Box</h2>
+    <div class="authenticate">
+        <button onclick="authenticate()" id="authenticateButton">authenticate</button>
+        <input type="text" id="boxID" class="textField" placeholder="(numbers only)">
+        <input type="text" id="access_code" class="textField">
+        <p id="authenticated" class="response"></p>
+        <script type="text/javascript" src="main.js"></script>
+    </div>
+    <div class="addOrder">
+        <button onclick="addOrder()" id="addOrderButton">add order</button>
+        <input type="text" id="trackingID" class="textField">
+        <p id="needAccess" class="response"></p>
+        <script type="text/javascript" src="main.js"></script>
+    </div>  
+    <div class="orders">
+        <button onclick="viewOrders()" id="viewOrdersButton">view my orders</button>
+        <script type="text/javascript" src="main.js"></script>
+        <p id="orders" class="response"></p>
+    </div>
+    <div class = "boxStatus">
+        <button onclick="getLockStatus()" id="getLockStatusButton">box status</button>
+        <script type="text/javascript" src="main.js"></script>
+        <p id="boxStatus" class="response"></p>
+    </div>
+    <h2 id="profileHeader">My Profile</h2>
+    <div class="profile">
+        <p id="phoneNum" class="response"></p>
+    </div>
+    <div class="accessCode"> 
+        <button onclick="setAccessCode()" id="setAccessCodeButton">reset access code</button>
+        <input type="password" id="accessCode" class="textField">
+        <p id="needAccess1"></p>
+        <script type="text/javascript" src="main.js"></script>
+    </div>
+    <div class="register">
+        <button id="registerButton"><a href="register.html">register</a></button>
+        <p id="notMember">    Not a member?</p>
+    </div>
+</body>
+</html>
