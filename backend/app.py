@@ -22,11 +22,7 @@ def register():
 def addOrder():
     request = app.current_request.json_body
     db.addOrder(request['box_id'], request['tracking_id'])
-<<<<<<< HEAD
     return {"Added": True}
-=======
-    return {'Added': True}
->>>>>>> 46acdfdb044123892b5a1a4dbd5034a54fd53823
 
 @app.route('/deleteOrder', methods=['POST'])
 def deleteOrder():
