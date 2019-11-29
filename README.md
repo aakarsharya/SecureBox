@@ -4,16 +4,16 @@ SecureBox is the solution to two major problems with online delivery:
 1. Theft of packages when customers are away from home
 2. Travelling to a far away depot to pick up a package when it is rerouted 
 
-SecureBox locks parcels received via mail for you so that your mail is safe, and you don't have to worry about picking up your package from an inconvenient location.
+SecureBox is an intelligent storage system for mail. It locks parcels received via mail for you, ensuring your mail safe, and right outside your doorstep.
 
-There are only two ways to open the box:
-1. Entering an access code (when the customer opens the box)
-2. Entering a tracking ID of an expected order (when the delivery man opens the box)
+There are only two people who can open the box:
+1. Customer - by entering the access code
+2. Delivery man - by entering the tracking ID of an expected order 
 
-All you have to do is add the tracking ID through our website when you make an order, so that the box knows what tracking ID to expect. When the order arrives, the box will delete the item from your list of orders and text you to let you know your order has arrived.
+All you have to do is add the tracking ID through the website when you make an order, so that the box knows what tracking ID to expect. When the order arrives, the box will delete the item from your list of orders and text you to let you know your order has arrived.
 
-## SecureBox Website
-The SecureBox [website](https://aakarsharya.github.io/SecureBox/) is allows the customer to access and set personal information. In order to access or change personal information, the user must first authenticate themselves with their box ID and access code. 
+## SecureBox Web App
+The SecureBox [website](https://aakarsharya.github.io/SecureBox/) allows the customer to access and set personal information. In order to access or change personal information, the user must first authenticate themselves with their box ID and access code. 
 
 Some of the website features include:
 - Orders/Add Order
@@ -63,6 +63,9 @@ Follow the instructions displayed on the LCD Display.
 - Python Requests Library
 - Freenove Libraries
 
+### Debugging Tools
+- Postman (to test API)
+
 ## Behind the Scenes
 SecureBox uses Amazon Web Services (AWS) to store users' data, and route requests from both the Rasberry Pi and the website.
 
@@ -70,7 +73,7 @@ AWS API Gateway is used to make calls to the SecureBox REST API. This API is a c
 
 The API Gateway triggers backend python code which is stored on AWS Lambda, known as a Lambda function. The lambda function parses the JSON associated with the request and makes changes or queries the database depending on the request.
 
-The database is hosted through AWS DynamoDB, which is a NoSQL based database. It stores the user's box ID, access code, orders (with corresponding tracking ID's), username, and phone number. 
+The database is hosted through AWS DynamoDB, which is a NoSQL based database. It stores the user's box ID as a primary key, along with an access code, orders (with corresponding tracking ID's), username, and phone number. 
 
 1. RasberryPi -> Gateway -> Lambda -> DynamoDB	
 2. Website S3 -> Gateway -> Lambda -> DynamoDB		
