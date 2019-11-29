@@ -1,6 +1,50 @@
 # SecureBox
 
-Communication:
+## SecureBox Website
+[Homepage](https://aakarsharya.github.io/SecureBox/)
+The SecureBox homepage is used to authenticate the user, who can then access and set personal information including:
+- Orders/Add Order
+- Get Box Status (locked/unlocked)
+- Reset Access Code
+- Register (for new users) 
+
+## Installation (if you have a Rasberry Pi)
+First, clone the repository to your Desktop.
+```bash
+git clone https://github.com/aakarsharya/SecureBox.git
+```
+Then, clone these Freenove libraries to you Desktop from this [link](https://github.com/Freenove/Freenove_Ultimate_Starter_Kit_for_Raspberry_Pi) and copy the following files into the box directory. This libraries are used by the box's keypad, lights, and LCD display.
+```bash
+git clone https://github.com/Freenove/Freenove_Ultimate_Starter_Kit_for_Raspberry_Pi.git
+cp ~/Desktop/Freenove_Ultimate_Starter_Kit_for_Raspberry_Pi/Code/Python_Code/22.1.1_MatrixKeypad/Keypad.py ~/Desktop/SecureBox/box
+cp ~/Desktop/Freenove_Ultimate_Starter_Kit_for_Raspberry_Pi/Code/Python_Code/20.1.1_I2CLCD1602/Adafruit_LCD1602.py ~/Desktop/SecureBox/box
+cp ~/Desktop/Freenove_Ultimate_Starter_Kit_for_Raspberry_Pi/Code/Python_Code/20.1.1_I2CLCD1602/PCF8574.py ~/Desktop/SecureBox/box
+```
+
+## Hardware Setup
+
+## Running the program
+To run the program, simply enter the following command into your Rasberry Pi's terminal from the box directory using the following commands.
+```bash
+cd ~/Desktop/SecureBox/box
+python box.py
+```
+Follow the instructions displayed on the LCD Display.
+
+## Tech Stack
+### Backend
+Python
+AWS APIGateway
+AWS Lambda
+AWS DynamoDB
+Chalice
+
+### Frontend
+Javscript
+HTML
+CSS
+
+## How it Works
 1. RasberryPi -> Gateway -> Lambda -> DynamoDB:		Provide Lock Status, check access code, 
 2. Website S3 -> Gateway -> Lambda -> DynamoDB		Get Lock Status, Register user, update order info
 
