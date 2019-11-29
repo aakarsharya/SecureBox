@@ -1,5 +1,5 @@
 # SecureBox
-## What is SecureBox
+## What is SecureBox?
 SecureBox is the solution to two major problems with online delivery:
 1. Theft of packages when customers are away from home
 2. Travelling to a far away depot to pick up a package when it is rerouted 
