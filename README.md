@@ -6,7 +6,6 @@ SecureBox is the solution to two major problems with online delivery:
 
 SecureBox locks parcels received via mail for you so that your mail is safe, and you don't have to worry about picking up your package from an inconvenient location.
 
-When your order arrives, you will recieve a text. You can even check the status of your box online.
 There are only two ways to open the box:
 1. Entering an access code (when the customer opens the box)
 2. Entering a tracking ID of an expected order (when the delivery man opens the box)
