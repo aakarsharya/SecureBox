@@ -12,7 +12,7 @@ First, clone the repository to your Desktop.
 ```bash
 git clone https://github.com/aakarsharya/SecureBox.git
 ```
-Then, clone these Freenove libraries to you Desktop from this [link](https://github.com/Freenove/Freenove_Ultimate_Starter_Kit_for_Raspberry_Pi) and copy the following files into the box directory. This libraries are used by the box's keypad, lights, and LCD display.
+Next, clone this Freenove repo to your Desktop from this [link](https://github.com/Freenove/Freenove_Ultimate_Starter_Kit_for_Raspberry_Pi). After cloning, copy the following libraries into the SecureBox/box directory. This libraries are used by the box's keypad, lights, and LCD display.
 ```bash
 git clone https://github.com/Freenove/Freenove_Ultimate_Starter_Kit_for_Raspberry_Pi.git
 cp ~/Desktop/Freenove_Ultimate_Starter_Kit_for_Raspberry_Pi/Code/Python_Code/22.1.1_MatrixKeypad/Keypad.py ~/Desktop/SecureBox/box
