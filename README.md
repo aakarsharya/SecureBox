@@ -1,13 +1,31 @@
 # SecureBox
+## What is SecureBox
+SecureBox is the solution to two major problems with online delivery:
+1. Theft of packages when customers are away from home
+2. Travelling to a far away depot to pick up a package when it is rerouted 
+
+SecureBox locks parcels received via mail for you so that your mail is safe, and you don't have to worry about picking up your package from an inconvenient location.
+
+When your order arrives, you will recieve a text. You can even check the status of your box online.
+There are only two ways to open the box:
+1. Entering an access code (when the customer opens the box)
+2. Entering a tracking ID of an expected order (when the delivery man opens the box)
+
+All you have to do is add the tracking ID through our website when you make an order, so that the box knows what tracking ID to expect. When the order arrives, the box will delete the item from your list of orders and text you to let you know your order has arrived.
 
 ## SecureBox Website
-The [SecureBox](https://aakarsharya.github.io/SecureBox/) website is used to authenticate the user, who can then access and set personal information including:
+The SecureBox [website](https://aakarsharya.github.io/SecureBox/) is allows the customer to access and set personal information. In order to access or change personal information, the user must first authenticate themselves with their box ID and access code. 
+
+Some of the website features include:
 - Orders/Add Order
 - Get Box Status (locked/unlocked)
 - Reset Access Code
 - Register (for new users) 
 
-## Installation (if you have a Rasberry Pi)
+## Rasberry Pi Program
+Each SecureBox uses a Rasberry Pi to connect to the Database, authenticate users, and control the hardware components on the box. The box comes with an LCD Display, LED lights, and a Keypad to enter the access code.
+
+### Installation (if you have a Rasberry Pi with Hardware components)
 First, clone the repository to your Desktop.
 ```bash
 git clone https://github.com/aakarsharya/SecureBox.git
@@ -20,9 +38,7 @@ cp ~/Desktop/Freenove_Ultimate_Starter_Kit_for_Raspberry_Pi/Code/Python_Code/20.
 cp ~/Desktop/Freenove_Ultimate_Starter_Kit_for_Raspberry_Pi/Code/Python_Code/20.1.1_I2CLCD1602/PCF8574.py ~/Desktop/SecureBox/box
 ```
 
-## Hardware Setup
-
-## Running the program
+### Running the program
 To run the program, simply enter the following command into your Rasberry Pi's terminal from the box directory using the following commands.
 ```bash
 cd ~/Desktop/SecureBox/box
@@ -32,63 +48,31 @@ Follow the instructions displayed on the LCD Display.
 
 ## Tech Stack
 ### Backend
-Python
-AWS APIGateway
-AWS Lambda
-AWS DynamoDB
-Chalice
+- Python
+- AWS APIGateway
+- AWS Lambda
+- AWS DynamoDB
+- Chalice
+- Twilio API
 
 ### Frontend
-Javscript
-HTML
-CSS
+- Javscript (XMLHttpRequest)
+- HTML
+- CSS
 
-## How it Works
-1. RasberryPi -> Gateway -> Lambda -> DynamoDB:		Provide Lock Status, check access code, 
-2. Website S3 -> Gateway -> Lambda -> DynamoDB		Get Lock Status, Register user, update order info
+### Rasberry Pi
+- Python Requests Library
+- Freenove Libraries
 
-Lambda:
-- functions used by website:
-	- authenticate_website()			// through password + email
-	- register()				
-	- deleteUser()				
-	- addOrder()				
-	- deleteOrder()						// month after order is entered or manually
-	- getLockStatus()			
-	- setPassword()				
-	- setEmail()				
-	- setPhoneNumber()			
-- functions used by RasberryPi:	
-	- authenticate_pi()					// through access_code + box_id
-	- deleteOrder()						// when tracking_id is entered 
-	- setLockStatus()			
-	- setAccessCode()			
-	- getPhoneNumber()			
-	- getEmail()				
-	
-RasberryPi:
-- unlock()						
-- lock()						
-- notifyUser() 							// text user when box is unlocked, then locked (order has arrived)
-- inputAccessCode()						// unlock if access code matches code in database
-- inputTrackingID()						// unlock if tracking_id exists in orders[]
-- resetAccessCode()				
-- wait20seconds()						// time for delivery man to drop off package in box
+## Behind the Scenes
+SecureBox uses Amazon Web Services (AWS) to store users' data, and route requests from both the Rasberry Pi and the website.
 
-Website:
-- Login/Register						// Using Amazon Cognito user pools
-- View my Orders + Box Status			// refresh button to check current box lock status 
-- Edit My Profile 						// change phone number, email, password, access_code.
+AWS API Gateway is used to make calls to the SecureBox REST API. This API is a collection of HTTP resources and methods that integrate with HTTP endpoints and expose methods in the AWS Lambda function. It acts as an interface for the website or Rasberry Pi to retrieve, update, or add data to the Database. The Rasberry Pi makes requests using the python Requests library, while the website uses HTTP POST requests. 
 
-TODO:
-- Create functions to call REST API from RasberryPi				// November 15
-- RasberryPi program hardware									// November 15
-- Test RasberryPi read/write to database + texting feature		// November 17
-- Website UI 											        // November 24
-- Test Website read/write to database 							// December 1
-- Make box + locking servo motors								// December 6
-- Test AWS Gateway -> Lambda and cleanup front-end				// December 19
+The API Gateway triggers backend python code which is stored on AWS Lambda, known as a Lambda function. The lambda function parses the JSON associated with the request and makes changes or queries the database depending on the request.
 
-Bugs:
-- Website input invalid box id (add try catch for key error in app.py/db.py)
-- add helper text in text fields
+The database is hosted through AWS DynamoDB, which is a NoSQL based database. It stores the user's box ID, access code, orders (with corresponding tracking ID's), username, and phone number. 
+
+1. RasberryPi -> Gateway -> Lambda -> DynamoDB	
+2. Website S3 -> Gateway -> Lambda -> DynamoDB		
+
