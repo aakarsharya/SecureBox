@@ -1,8 +1,7 @@
 # SecureBox
 
 ## SecureBox Website
-[Homepage](https://aakarsharya.github.io/SecureBox/)
-The SecureBox homepage is used to authenticate the user, who can then access and set personal information including:
+The [SecureBox](https://aakarsharya.github.io/SecureBox/) website is used to authenticate the user, who can then access and set personal information including:
 - Orders/Add Order
 - Get Box Status (locked/unlocked)
 - Reset Access Code
