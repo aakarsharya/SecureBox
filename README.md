@@ -12,6 +12,24 @@ There are only two people who can open the box:
 
 All you have to do is add the tracking ID through the website when you make an order, so that the box knows what tracking ID to expect. When the order arrives, the box will delete the item from your list of orders and text you to let you know your order has arrived.
 
+## How it Works
+First, after purchasing the box, register through the website.
+<p float="left">
+  <img src="images/register.png" width="400" height ="200" />
+  <img src="images/registerText.jpg" width="315" height="145" /> 
+</p>
+Then, add the tracking ID of an order you are expecting.
+<p float="left">
+  <img src="images/addOrder.png" width="450" height ="145" /> 
+</p>
+Now, when your arrives, the delivery man can open the box with the tracking ID.
+![](images/authenticate.gif)
+Once it arrives, you will receive a text, and your order will be removed from our database.
+<p float="left">
+  <img src="images/removeOrder.png" width="450" height ="145" /> &nbsp;&nbsp;&nbsp;&nbsp;
+  <img src="images/arrivedText.jpg" width="300" height="145" /> 
+</p>
+
 ## SecureBox Web App
 The SecureBox [website](https://aakarsharya.github.io/SecureBox/) allows the customer to access and set personal information. In order to access or change personal information, the user must first authenticate themselves with their box ID and access code. 
 
