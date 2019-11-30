@@ -28,6 +28,7 @@ Now, when your arrives, the delivery man can open the box with the tracking ID.
 <br/><br/>
 <img src="images/authenticate.gif" >
 Once it arrives, you will receive a text, and your order will be removed from our database.
+<br/><br/>
 <p float="left">
   <img src="images/removeOrder.png" width="450" height ="145" /> &nbsp;&nbsp;&nbsp;&nbsp;
   <img src="images/arrivedText.jpg" width="300" height="145" /> 
