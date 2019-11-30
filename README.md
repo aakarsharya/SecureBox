@@ -10,10 +10,10 @@ There are only two people who can open the box:
 1. Customer - by entering the access code
 2. Delivery man - by entering the tracking ID of an expected order 
 
-All you have to do is add the tracking ID through the website when you make an order, so that the box knows what tracking ID to expect. When the order arrives, the box will delete the item from your list of orders and text you to let you know your order has arrived.
+All you have to do is add the tracking ID through the [website](https://aakarsharya.github.io/SecureBox/) when you make an order, so that the box knows what tracking ID to expect. When the order arrives, the box will delete the item from your list of orders and text you to let you know your order has arrived.
 
 ## How it Works
-First, after purchasing the box, register through the website.
+First, after purchasing the box, register through the [website](https://aakarsharya.github.io/SecureBox/register.html).
 <br/><br/>
 <p float="left">
   <img src="images/register.png" width="400" height ="200" />
