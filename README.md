@@ -65,7 +65,7 @@ To run the program, simply enter the following command into your Rasberry Pi's t
 cd ~/Desktop/SecureBox/box
 python box.py
 ```
-Follow the instructions displayed on the LCD Display.
+Follow the prompts from the LCD Display.
 
 ## Tech Stack
 ### Backend
@@ -96,7 +96,3 @@ AWS API Gateway is used to make calls to the SecureBox REST API. This API is a c
 The API Gateway triggers backend python code which is stored on AWS Lambda, known as a Lambda function. The lambda function parses the JSON associated with the request and makes changes or queries the database depending on the request.
 
 The database is hosted through AWS DynamoDB, which is a NoSQL based database. It stores the user's box ID as a primary key, along with an access code, orders (with corresponding tracking ID's), username, and phone number. 
-
-1. RasberryPi -> Gateway -> Lambda -> DynamoDB	
-2. Website S3 -> Gateway -> Lambda -> DynamoDB		
-
