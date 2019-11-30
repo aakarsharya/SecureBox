@@ -22,8 +22,10 @@ Then, add the tracking ID of an order you are expecting.
 <p float="left">
   <img src="images/addOrder.png" width="450" height ="145" /> 
 </p>
-Now, when your arrives, the delivery man can open the box with the tracking ID.
-![](images/authenticate.gif)
+Now, when your arrives, the delivery man can open the box with the tracking ID. 
+<br>
+<img src="images/authenticate.gif" >
+
 Once it arrives, you will receive a text, and your order will be removed from our database.
 <p float="left">
   <img src="images/removeOrder.png" width="450" height ="145" /> &nbsp;&nbsp;&nbsp;&nbsp;
