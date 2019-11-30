@@ -14,18 +14,19 @@ All you have to do is add the tracking ID through the website when you make an o
 
 ## How it Works
 First, after purchasing the box, register through the website.
+<br/><br/>
 <p float="left">
   <img src="images/register.png" width="400" height ="200" />
   <img src="images/registerText.jpg" width="315" height="145" /> 
 </p>
 Then, add the tracking ID of an order you are expecting.
+<br/><br/>
 <p float="left">
   <img src="images/addOrder.png" width="450" height ="145" /> 
 </p>
 Now, when your arrives, the delivery man can open the box with the tracking ID. 
-<br>
 <img src="images/authenticate.gif" >
-
+<br/><br/>
 Once it arrives, you will receive a text, and your order will be removed from our database.
 <p float="left">
   <img src="images/removeOrder.png" width="450" height ="145" /> &nbsp;&nbsp;&nbsp;&nbsp;
