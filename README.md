@@ -82,8 +82,8 @@ Follow the prompts from the LCD Display.
 - CSS
 
 ### Rasberry Pi
-- Python Requests Library
-- Freenove Libraries
+- Python HTTP Requests API
+- Rasberry Pi Freenove Libraries
 
 ### Debugging Tools
 - Postman (to test API)
