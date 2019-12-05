@@ -34,6 +34,16 @@ Once it arrives, you will receive a text, and your order will be removed from ou
   <img src="images/arrivedText.jpg" width="300" height="145" /> 
 </p>
 
+## Behind the Scenes
+SecureBox uses Amazon Web Services (AWS) to store users' data, and route requests from both the Rasberry Pi and the website.
+<img src="images/diagram.png" /> 
+
+AWS API Gateway is used to make calls to the SecureBox REST API. This API is a collection of HTTP resources and methods that integrate with HTTP endpoints and expose methods in the AWS Lambda function. It acts as an interface for the website or Rasberry Pi to retrieve, update, or add data to the Database. The Rasberry Pi makes requests using the python Requests library, while the website uses HTTP POST requests. 
+
+The API Gateway triggers backend python code which is stored on AWS Lambda, known as a Lambda function. The lambda function parses the JSON associated with the request and makes changes or queries the database depending on the request.
+
+The database is hosted through AWS DynamoDB, which is a NoSQL based database. It stores the user's box ID as a primary key, along with an access code, orders (with corresponding tracking ID's), username, and phone number. 
+
 ## SecureBox Web App
 The SecureBox [website](https://aakarsharya.github.io/SecureBox/) allows the customer to access and set personal information. In order to access or change personal information, the user must first authenticate themselves with their box ID and access code. 
 
@@ -87,13 +97,3 @@ Follow the prompts from the LCD Display.
 
 ### Debugging Tools
 - Postman (to test API)
-
-## Behind the Scenes
-SecureBox uses Amazon Web Services (AWS) to store users' data, and route requests from both the Rasberry Pi and the website.
-<img src="images/diagram.png" /> 
-
-AWS API Gateway is used to make calls to the SecureBox REST API. This API is a collection of HTTP resources and methods that integrate with HTTP endpoints and expose methods in the AWS Lambda function. It acts as an interface for the website or Rasberry Pi to retrieve, update, or add data to the Database. The Rasberry Pi makes requests using the python Requests library, while the website uses HTTP POST requests. 
-
-The API Gateway triggers backend python code which is stored on AWS Lambda, known as a Lambda function. The lambda function parses the JSON associated with the request and makes changes or queries the database depending on the request.
-
-The database is hosted through AWS DynamoDB, which is a NoSQL based database. It stores the user's box ID as a primary key, along with an access code, orders (with corresponding tracking ID's), username, and phone number. 
