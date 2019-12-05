@@ -90,6 +90,7 @@ Follow the prompts from the LCD Display.
 
 ## Behind the Scenes
 SecureBox uses Amazon Web Services (AWS) to store users' data, and route requests from both the Rasberry Pi and the website.
+<img src="images/diagram.png" /> 
 
 AWS API Gateway is used to make calls to the SecureBox REST API. This API is a collection of HTTP resources and methods that integrate with HTTP endpoints and expose methods in the AWS Lambda function. It acts as an interface for the website or Rasberry Pi to retrieve, update, or add data to the Database. The Rasberry Pi makes requests using the python Requests library, while the website uses HTTP POST requests. 
 
