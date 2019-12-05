@@ -4,7 +4,7 @@ SecureBox is the solution to two major problems with online delivery:
 1. Theft of packages when customers are away from home
 2. Travelling to a far away depot to pick up a package when it is rerouted 
 
-SecureBox is an intelligent storage system for mail. It locks parcels received via mail for you, ensuring your mail safe, and right outside your doorstep.
+SecureBox is an intelligent storage system for mail. It locks parcels received via mail for you, ensuring your mail is safe, and right outside your doorstep.
 
 There are only two people who can open the box:
 1. Customer - by entering the access code
