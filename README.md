@@ -83,7 +83,7 @@ Follow the prompts from the LCD Display.
 - AWS APIGateway
 - AWS Lambda
 - AWS DynamoDB
-- Chalice
+- AWS Chalice (microframework to deploy serverless REST API)
 - Twilio API
 
 ### Frontend
